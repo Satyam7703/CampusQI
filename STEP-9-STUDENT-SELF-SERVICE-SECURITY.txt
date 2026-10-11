@@ -1,0 +1,15 @@
+STEP 9 — STUDENT SELF-SERVICE AUTHORIZATION
+
+New behavior
+- Student attendance summary/history APIs require a valid face-verified session token in the Authorization: Bearer header.
+- The token's student ID must match the requested student ID; one student cannot query another student's attendance by changing the URL.
+- New GET /api/student/sessions endpoint lists only open sessions matching the authenticated student's course, branch, semester and section.
+- Student dashboard and face-attendance page send the bearer token.
+- Sign out revokes the active in-memory session.
+
+Run from the folder containing pom.xml: mvn spring-boot:run
+
+Testing notes
+- ZIP integrity and JavaScript syntax are checked during packaging. Maven/live database build is not available in this packaging environment.
+- Student face sessions are in-memory and reset on server restart.
+- Prototype face matching lacks dependable liveness detection. Do not deploy publicly without security review, HTTPS, durable session storage, consent and biometric deletion controls.

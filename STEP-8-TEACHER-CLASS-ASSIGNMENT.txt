@@ -1,0 +1,21 @@
+STEP 8 — TEACHER-CLASS ASSIGNMENT
+
+WHAT'S NEW
+- Admin can assign timetable entries to active teacher accounts and remove assignments.
+- Assignments are stored in teacher_timetable_assignments and retained in the database.
+- Teacher timetable, session list, and attendance list are filtered server-side to assigned entries.
+- Backend checks class assignment before a teacher starts a session and checks ownership before closing one.
+- Assignment changes are written to the audit log.
+
+RUN
+1. Extract this ZIP. Open PowerShell in the folder containing pom.xml.
+2. Configure BOOTSTRAP_ADMIN_EMAIL and BOOTSTRAP_ADMIN_PASSWORD if creating the first admin.
+3. Run: mvn spring-boot:run
+4. Open http://localhost:8081/staff-login.html and sign in as Admin.
+5. Open Account management, add a teacher, then use Teacher-class assignments to assign timetable entries.
+6. Sign in with the teacher account; only assigned classes should appear.
+
+NOTES
+- A teacher with no assignments will see an empty timetable/session/attendance view and cannot start a session.
+- This is a development project; run a Maven build and test against your own configured database before deployment.
+- Student report endpoint hardening and formal automated integration tests are not included in this step.

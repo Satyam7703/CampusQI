@@ -1,0 +1,7 @@
+STEP 12 — EXCEL / PDF REPORT EXPORTS
+
+Added authenticated XLSX and PDF exports alongside the existing CSV export. All three exports share the report date/course/branch/semester/section/subject filters. Teacher report queries are constrained to the teacher's assigned timetable entries by the report filter helper; Admin can export all matching records. The XLSX is generated as a valid Office Open XML workbook without an extra library. The PDF is a lightweight printable report with page breaks.
+
+Open /reports.html after staff login and use Export CSV, Export Excel, or Export PDF.
+
+Security/testing note: Maven build and live database testing must still be run on the target machine. Validate report totals before using them for official attendance decisions.

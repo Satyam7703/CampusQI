@@ -1,0 +1,7 @@
+STEP 6: ADMIN MANAGEMENT
+
+Added admin-management.html, student ACTIVE/INACTIVE controls, teacher directory (create/list/activate/deactivate), teacher table schema for H2 and MySQL, and audit logging for these account changes.
+
+Open: 
+
+Security limitation: this is a prototype. Existing API routes are not yet protected by role-based authentication; do not deploy on a public network until server-side authorization is implemented.

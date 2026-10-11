@@ -1,0 +1,19 @@
+STEP 10 — ATTENDANCE ANALYTICS & REPORTS
+
+New page: /reports.html
+
+Features:
+- Filter by date range, course, branch, semester, section, and subject.
+- Subject-level attendance percentage and eligible student-session totals.
+- Students below 75% attendance list.
+- CSV export including expected slots with missing records represented as ABSENT.
+- Teacher analytics and exports are restricted to the teacher's assigned timetable entries at the backend.
+
+API endpoints:
+- GET /api/reports/analytics
+- GET /api/reports/export.csv
+
+Run from the directory containing pom.xml: mvn spring-boot:run
+Open http://localhost:8081/reports.html after staff sign-in.
+
+Testing note: ZIP integrity and inline JavaScript syntax should be checked; Maven/live database build may not be available in this environment. Review analytics against institutional attendance policy before official use.

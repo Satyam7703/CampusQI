@@ -1,0 +1,5 @@
+Smart Campus Attendance ERP — Step 5: Teacher Panel
+
+Added /teacher-dashboard.html with a responsive teacher workspace using existing API endpoints: GET /api/timetable, GET /api/classrooms, GET /api/sessions, GET /api/attendance; POST /api/sessions/start; POST /api/sessions/{id}/close. The admin overview now includes a shortcut to the teacher panel.
+
+Important: this is a prototype UI and does not itself implement teacher identity/role authorization. Do not deploy to a real campus until server-side authentication/authorization is enforced for all teacher/admin endpoints.

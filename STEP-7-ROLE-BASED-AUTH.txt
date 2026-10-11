@@ -1,0 +1,5 @@
+STEP 7 — ROLE-BASED STAFF AUTH
+
+Staff login page: /staff-login.html. Configure BOOTSTRAP_ADMIN_EMAIL and BOOTSTRAP_ADMIN_PASSWORD before first launch. Admin password must be 12+ chars with uppercase, lowercase, digit and symbol. Admin creates teachers with an initial password in Admin Management. Sessions are hashed in the database, expire after 8 hours, and are revocable at logout.
+
+Prototype limitation: class ownership mapping and student self-service report authorization still require a follow-up before public deployment.

@@ -1,0 +1,32 @@
+STEP 11 - AUTOMATED ATTENDANCE ALERTS & NOTIFICATION CENTER
+
+Features
+- Persistent student in-app notifications for attendance below a configurable threshold (default 75%).
+- Daily scheduled scan at 08:00 Asia/Kolkata by default.
+- Admin-only notification history and manual scan endpoint/page.
+- SMTP email delivery when configured; status stored as SENT, FAILED, or IN_APP_ONLY.
+- One low-attendance alert per student per day, enforced by a database unique constraint.
+- Student notification endpoint checks the face-verified student session and only returns that student's notifications.
+- Admin scan activity is recorded in audit_logs.
+
+Pages
+- /notification-center.html (Admin only)
+- /student-notifications.html (Student face-verified session required)
+
+API
+- GET /api/notifications (Admin only)
+- POST /api/notifications/scan-low-attendance (Admin only)
+- GET /api/student/notifications (authenticated student; own records only)
+
+Configuration (environment variables)
+- LOW_ATTENDANCE_THRESHOLD=75
+- ATTENDANCE_ALERT_CRON=0 0 8 * * *
+- ATTENDANCE_ALERT_TIME_ZONE=Asia/Kolkata
+- SMTP_HOST, SMTP_PORT, SMTP_USERNAME, SMTP_PASSWORD, SMTP_FROM
+
+SMTP not configured means in-app notifications are still saved; no email is sent. SMTP delivery must be tested with your actual provider. Daily deduplication means a failed email will not automatically retry for the same student on the same date; review FAILED rows and retry policy before production.
+
+Run from the directory containing pom.xml:
+  mvn spring-boot:run
+
+Testing note: ZIP integrity and browser JavaScript syntax can be checked in this build environment, but a full Maven build and live SMTP/database integration test have not been run here.
