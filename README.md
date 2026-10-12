@@ -4,13 +4,9 @@ Responsive web UI + Spring Boot REST API + H2/MySQL schema for multi-course coll
 
 ## Demo screenshots
 
-| Sign in | Admin sign in |
+| Sign in | Dashboard |
 | --- | --- |
-| ![CampusIQ sign-in screen](docs/screenshots/login.png) | ![CampusIQ admin sign-in screen](docs/screenshots/admin-login.png) |
-
-| Forgot password | Reset password |
-| --- | --- |
-| ![CampusIQ forgot password screen](docs/screenshots/forgot-password.png) | ![CampusIQ reset password screen](docs/screenshots/reset-password.png) |
+| ![CampusIQ sign-in screen](docs/screenshots/login.png) | ![CampusIQ dashboard](docs/screenshots/dashboard.png) |
 
 ## Important status (read before official use)
 This is an **enhanced development prototype**, not yet a production-secure biometric attendance system. Browser-based face descriptors are now enrolled and compared by the API, and a student face-attendance page is included. This is still a prototype: face descriptors arrive from the browser, short-lived in-memory face challenges/sessions are not durable, and robust liveness/anti-spoofing is not implemented. Also, login currently verifies credentials but does not yet issue a production access token or enforce authentication/roles across all ERP routes. Do not use this version for official attendance or expose it publicly until those security items are completed and tested.
