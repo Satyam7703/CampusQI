@@ -4,3 +4,5 @@ data/
 *.log
 .idea/
 .vscode/
+/src/main/resources/application.properties
+application.properties

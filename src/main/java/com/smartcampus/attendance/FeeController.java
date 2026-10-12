@@ -10,7 +10,8 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.net.URI;
-import java.net.http.*;
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.*;
@@ -59,7 +60,7 @@ class FeeController {
       String auth=Base64.getEncoder().encodeToString((keyId+":"+keySecret).getBytes(StandardCharsets.UTF_8));
       String body=json.writeValueAsString(Map.of("amount",paise,"currency","INR","receipt","fee_"+id+"_"+System.currentTimeMillis(),"notes",Map.of("feeId",id,"studentId",student)));
       java.net.http.HttpRequest req=java.net.http.HttpRequest.newBuilder(URI.create("https://api.razorpay.com/v1/orders")).header("Authorization","Basic "+auth).header("Content-Type","application/json").POST(java.net.http.HttpRequest.BodyPublishers.ofString(body)).build();
-      Map<?,?> out=json.readValue(HttpClient.newHttpClient().send(req,HttpResponse.BodyHandlers.ofString()).body(),Map.class); String orderId=String.valueOf(out.get("id"));
+        Map<?,?> out=json.readValue(HttpClient.newHttpClient().send(req,HttpResponse.BodyHandlers.ofString()).body(),Map.class); String orderId=String.valueOf(out.get("id"));
       db.update("INSERT INTO fee_payments(fee_id,student_id,razorpay_order_id,amount) VALUES(?,?,?,?)",id,student,orderId,paise/100.0);
       return Map.of("keyId",keyId,"orderId",orderId,"amount",paise,"currency","INR","feeId",id);
     }catch(Exception e){throw new ResponseStatusException(HttpStatus.BAD_GATEWAY,"Razorpay order could not be created.");}

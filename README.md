@@ -16,7 +16,17 @@ This is an **enhanced development prototype**, not yet a production-secure biome
 2. Open PowerShell in the folder containing `pom.xml`. Verify with `dir pom.xml`.
 3. Run `java -version` and `mvn -version`.
 4. Start the app: `mvn spring-boot:run`
-5. Open `http://localhost:8081` for the dashboard or `http://localhost:8081/login.html` for login.
+5. Open `http://localhost:8081` for the sign-in page. After a successful staff sign-in, the admin dashboard opens; unauthenticated direct visits to the dashboard are redirected back to sign-in.
+
+For the bootstrap administrator, set `BOOTSTRAP_ADMIN_EMAIL` and a strong `BOOTSTRAP_ADMIN_PASSWORD` (12–72 characters with uppercase, lowercase, a number, and a symbol) in the same PowerShell window before starting the app:
+
+```powershell
+$env:BOOTSTRAP_ADMIN_EMAIL = "admin@example.com"
+$env:BOOTSTRAP_ADMIN_PASSWORD = "Replace-with-a-strong-password!"
+mvn spring-boot:run
+```
+
+If the application was already running, restart it after changing these values. Student accounts continue to use the student login flow and can create their first password through Forgot password.
 
 ### Password reset OTP email
 
@@ -26,7 +36,7 @@ Forgot Password sends a one-time 6-digit OTP to the student's active, registered
 $env:SMTP_HOST = "smtp.gmail.com"
 $env:SMTP_PORT = "587"
 $env:SMTP_USERNAME = "mishrasatyam08885@gmail.com"
-$env:SMTP_PASSWORD = "uvpj kmkr bass gorc"
+$env:SMTP_PASSWORD = "your-gmail-app-password"
 $env:SMTP_FROM = "mishrasatyam08885@gmail.com"
 mvn spring-boot:run
 ```

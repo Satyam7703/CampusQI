@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS face_templates (student_id BIGINT PRIMARY KEY, descri
 
 -- Persistent in-app alerts and email delivery history. One low-attendance alert per student per day.
 CREATE TABLE IF NOT EXISTS attendance_notifications (id BIGINT AUTO_INCREMENT PRIMARY KEY, student_id BIGINT NOT NULL, alert_type VARCHAR(40) NOT NULL, period_key VARCHAR(20) NOT NULL, title VARCHAR(180) NOT NULL, message VARCHAR(1000) NOT NULL, recipient_email VARCHAR(160), email_status VARCHAR(30) NOT NULL DEFAULT 'IN_APP_ONLY', created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT uq_student_alert_period UNIQUE(student_id, alert_type, period_key), FOREIGN KEY(student_id) REFERENCES students(id));
-CREATE INDEX IF NOT EXISTS idx_notifications_student_created ON attendance_notifications(student_id, created_at);
+CREATE INDEX idx_notifications_student_created ON attendance_notifications(student_id, created_at);
 
 -- Indexes for attendance reports and common joins.
 CREATE INDEX idx_sessions_timetable_date ON attendance_sessions(timetable_id, session_date);

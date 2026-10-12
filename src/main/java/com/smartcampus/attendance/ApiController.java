@@ -52,7 +52,7 @@ class ApiController {
   }
   @GetMapping("/classrooms") List<Map<String,Object>> classrooms(){ return db.queryForList("SELECT * FROM classrooms ORDER BY building,room_code"); }
   @PostMapping("/classrooms") ResponseEntity<?> addRoom(@RequestBody Map<String,Object> x){
-    try { db.update("INSERT INTO classrooms(room_code,building,floor_name,latitude,longitude,radius_m,active) VALUES(?,?,?,?,?,?,TRUE)",req(x,"roomCode"),req(x,"building"),str(x,"floor"),num(x,"latitude"),num(x,"longitude"),Integer.parseInt(strDefault(x,"radiusM","50"))); audit("CLASSROOM_CREATED","admin",str(x,"roomCode")); return ResponseEntity.status(201).body(Map.of("message","Classroom added")); }
+    try { db.update("INSERT INTO classrooms(room_code,building,floor_name,latitude,longitude,radius_m,active) VALUES(?,?,?,?,?,?,TRUE)",req(x,"roomCode"),req(x,"building"),str(x,"floor"),num(x,"latitude"),num(x,"longitude"),radius(x)); audit("CLASSROOM_CREATED","admin",str(x,"roomCode")); return ResponseEntity.status(201).body(Map.of("message","Classroom added")); }
     catch(DuplicateKeyException e){ throw new ResponseStatusException(HttpStatus.CONFLICT,"Room code already exists"); }
     catch(Exception e){ throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Please check classroom fields"); }
   }
@@ -308,6 +308,7 @@ class ApiController {
   }
   private String str(Map<String,Object>x,String k){ Object v=x.get(k); return v==null?null:String.valueOf(v); }
   private String strDefault(Map<String,Object>x,String k,String d){ String s=str(x,k); return s==null||s.isBlank()?d:s.trim(); }
+  private int radius(Map<String,Object> x){ int value=Integer.parseInt(strDefault(x,"radiusM","50")); if(value<1) throw new IllegalArgumentException("radiusM must be at least 1 metre"); return value; }
   private Double num(Map<String,Object>x,String k){ String s=str(x,k); return s==null||s.isBlank()?null:Double.valueOf(s); }
 
   @Bean CommandLineRunner seedData(JdbcTemplate db){ return args -> {
